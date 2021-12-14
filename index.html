@@ -5,7 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link href="main.css" rel="stylesheet" type="text/css">
+    <link href="css/main.css" rel="stylesheet" type="text/css">
+    <link href="css/c3.css" rel="stylesheet">
 </head>
 <body>
     <section class="addTicket-panel">
@@ -118,6 +119,8 @@
           <option value="高雄">高雄</option>
         </select>
         <p id="searchResult-text"></p>
+        <div id="chart">
+        </div>
       </div>
       <!-- 套票卡片區 -->
       <ul class="ticketCard-area">
@@ -133,4 +136,6 @@
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/validate.js/0.12.0/validate.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script type="text/javascript" src="main.js"></script>
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<script type="text/javascript" src="js/c3.min.js"></script>
+<script type="text/javascript" src="js/main.js"></script>

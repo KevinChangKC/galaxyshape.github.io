@@ -87,6 +87,10 @@ table {
     margin: 120px auto 100px;
     padding: 60px 0;
   }
+
+  #chart{
+    padding-left: 300px !important;  
+  }
   
   @media (max-width: 768px) {
     .addTicket-panel {

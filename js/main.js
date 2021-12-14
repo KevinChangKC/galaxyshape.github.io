@@ -55,6 +55,7 @@
       
       data.push(addTicketData[0]);
       renderCards(data,data.length);
+      renderDonutChart(data);
       searchBar.value = "全部地區";
       form.reset();
   }
@@ -95,14 +96,55 @@
     Array.forEach(function(value,index,array){
     let htmlTemplate = '<li class="ticketCard"><div class="ticketCard-img"><a href="#"><img src="'+ value.imgUrl +'" alt=""></a><div class="ticketCard-region">'+ value.area +'</div><div class="ticketCard-rank">'+ value.rate +'</div></div><div class="ticketCard-content"><div><h3><a href="#" class="ticketCard-name">'+ value.name +'</a></h3><p class="ticketCard-description">'+ value.description +'</p></div><div class="ticketCard-info"><p class="ticketCard-num"><span><i class="fas fa-exclamation-circle"></i></span>剩下最後 <span id="ticketCard-num"> '+ value.group +' </span> 組</p><p class="ticketCard-price">TWD <span id="ticketCard-price">$'+ value.price +'</span></p></div></div></li>';
     ulBox.innerHTML += htmlTemplate;
-    })
+    });
 
     document.querySelector("#searchResult-text").innerHTML = "搜尋資料為" + Count + "筆";
+  }
+
+  function renderDonutChart(chatData){
+    console.log(chatData[0].area);
+    let DonutData = [0,0,0]
+
+    chatData.forEach(function(item){
+        if(item.area === "台北")
+            DonutData[0]++;
+        else if(item.area === "台中")
+            DonutData[1]++;
+        else if(item.area === "高雄")
+            DonutData[2]++;
+    });
+
+    let chart = c3.generate({
+        data: {
+            columns: [
+                ['台北', DonutData[0]],
+                ['台中', DonutData[1]],
+                ['高雄', DonutData[2]],
+            ],
+            type : 'donut',
+        },
+        size: {
+            width: 200,
+            height: 170
+        },
+        color: {
+            pattern: ['#26C0C7', '#5151D3', '#E68618']
+        },
+        donut: {
+            title: "套票地區比重",
+            width: 10,
+            label: {
+                show: false
+            }
+        }
+    });
+    
   }
 
   function init(resData){
     data = resData;  
     renderCards(data,data.length);
+    renderDonutChart(data);
   }
 
   //initial
@@ -118,16 +160,16 @@
     })
     
     //LV1 get data  
-    // axios.get("https://raw.githubusercontent.com/hexschool/js-training/main/travelAPI-lv1.json")
-    //     .then(function(res){
-    //         init(res.data);
-    // });
-
-    //LV2 get data  
-        axios.get("https://raw.githubusercontent.com/hexschool/js-training/main/travelApi.json")
+    axios.get("https://raw.githubusercontent.com/hexschool/js-training/main/travelAPI-lv1.json")
         .then(function(res){
-            console.log(res);
-            init(res.data.data);
+            init(res.data);
     });
+
+    // //LV2 get data  
+    //     axios.get("https://raw.githubusercontent.com/hexschool/js-training/main/travelApi.json")
+    //     .then(function(res){
+    //         console.log(res);
+    //         init(res.data.data);
+    // });
 
   }
